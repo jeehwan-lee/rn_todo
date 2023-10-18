@@ -6,3 +6,5 @@
 - keyboardAppearance 에 따라 키보드의 색상을 결정
 
 2. Keyboard API : dismiss()를 사용해서 키보드를 사라지게 할 수 있음
+
+3. onChange / onChangeText 차이는 event를 넘기는지 아니면 Text만 넘기는지

@@ -1,3 +1,4 @@
+import { useState } from "react";
 import {
   Image,
   Keyboard,
@@ -12,6 +13,11 @@ import Input, { keyboardTypes, returnKeyTypes } from "../components/Input";
 import SafeInputView from "../components/SafeInputView";
 
 function SignInScreen() {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
+  console.log(email, password);
+
   return (
     <SafeInputView>
       <View style={styles.container}>
@@ -21,11 +27,15 @@ function SignInScreen() {
           placeholder="your@email.com"
           keyboardType={keyboardTypes.EMAIL}
           returnKeyType={returnKeyTypes.NEXT}
+          value={email}
+          onChangeText={(text) => setEmail(text)}
         />
         <Input
           title="비밀번호"
           returnKeyType={returnKeyTypes.DONE}
           secureTextEntry={true}
+          value={password}
+          onChangeText={(text) => setPassword(text)}
         />
       </View>
     </SafeInputView>

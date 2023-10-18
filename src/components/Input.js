@@ -16,11 +16,13 @@ function Input({
   keyboardType,
   returnKeyType,
   secureTextEntry,
+  ...props
 }) {
   return (
     <View style={styles.container}>
       <Text style={styles.title}>{title}</Text>
       <TextInput
+        {...props}
         style={styles.input}
         placeholder={placeholder ?? title}
         placeholderTextColor="#a3a3a3"
