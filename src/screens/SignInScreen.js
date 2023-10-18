@@ -9,7 +9,11 @@ import {
   Text,
   View,
 } from "react-native";
-import Input, { keyboardTypes, returnKeyTypes } from "../components/Input";
+import Input, {
+  IconNames,
+  keyboardTypes,
+  returnKeyTypes,
+} from "../components/Input";
 import SafeInputView from "../components/SafeInputView";
 
 function SignInScreen() {
@@ -29,6 +33,7 @@ function SignInScreen() {
           returnKeyType={returnKeyTypes.NEXT}
           value={email}
           onChangeText={(text) => setEmail(text)}
+          iconName={IconNames.EMAIL}
         />
         <Input
           title="비밀번호"
@@ -36,6 +41,7 @@ function SignInScreen() {
           secureTextEntry={true}
           value={password}
           onChangeText={(text) => setPassword(text)}
+          iconName={IconNames.PASSWORD}
         />
       </View>
     </SafeInputView>
