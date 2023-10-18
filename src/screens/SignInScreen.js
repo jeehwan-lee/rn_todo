@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 import {
   Image,
   Keyboard,
@@ -19,6 +19,7 @@ import SafeInputView from "../components/SafeInputView";
 function SignInScreen() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const passwordRef = useRef(null);
 
   console.log(email, password);
 
@@ -34,6 +35,7 @@ function SignInScreen() {
           value={email}
           onChangeText={(text) => setEmail(text)}
           iconName={IconNames.EMAIL}
+          onSubmitEditing={() => passwordRef.current.focus()}
         />
         <Input
           title="비밀번호"
@@ -42,6 +44,7 @@ function SignInScreen() {
           value={password}
           onChangeText={(text) => setPassword(text)}
           iconName={IconNames.PASSWORD}
+          ref={passwordRef}
         />
       </View>
     </SafeInputView>
