@@ -10,6 +10,7 @@ import {
   Text,
   View,
 } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
 import { signIn } from "../api/auth";
 import Button from "../components/Button";
 import Input, {
@@ -49,7 +50,7 @@ function SignInScreen({ navigation }) {
 
   return (
     <SafeInputView>
-      <View style={styles.container}>
+      <SafeAreaView style={styles.container}>
         <Image source={require("../../assets/main.png")} style={styles.image} />
         <Input
           title="이메일"
@@ -79,7 +80,7 @@ function SignInScreen({ navigation }) {
             isLoading={isLoading}
           />
         </View>
-      </View>
+      </SafeAreaView>
     </SafeInputView>
   );
 }
@@ -87,8 +88,8 @@ function SignInScreen({ navigation }) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
+    // justifyContent: "center",
+    // alignItems: "center",
   },
   image: {
     width: 200,

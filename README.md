@@ -6,6 +6,7 @@
 - keyboardAppearance 에 따라 키보드의 색상을 결정
 
 2. Keyboard API : dismiss()를 사용해서 키보드를 사라지게 할 수 있음
+   2-1. KeyboardAvoidingView : 키보드가 나올때 화면을 가리지 않도록 화면을 위로 올림
 
 3. onChange / onChangeText 차이는 event를 넘기는지 아니면 Text만 넘기는지
 
@@ -30,3 +31,7 @@
 8. useNavigation Hook
 
 - navigation props를 전달하지 않고 어디서든 사용할 수 있도록 하는 Hook
+
+9. SafeAreaView : 화면의 윗쪽에 배터리, 시간 등의 표시창과 겹치는 부분을 제외하고 랜더링함
+   -> react-native의 SafeAreaView는 ios에서만 적용됨
+   -> react-native-safe-area-context 를 사용하면 ios와 android 둘 다 적용됨
