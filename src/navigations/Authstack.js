@@ -5,6 +5,7 @@ import ListScreen from "../screens/ListScreen";
 import SignInScreen from "../screens/SignInScreen";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
+import SettingsScreen from "../screens/SettingsScreen";
 
 const Stack = createNativeStackNavigator();
 
@@ -30,12 +31,25 @@ const AuthStack = () => {
           if (!canGoBack) return null;
 
           return (
-            <Pressable onPress={() => navigation.goBack()}>
+            <Pressable onPress={() => navigation.goBack()} hitSlop={10}>
               <MaterialCommunityIcons
                 name="chevron-left"
                 size={30}
                 color={tintColor}
               />
+            </Pressable>
+          );
+        },
+        headerRight: ({ canGoBack, tintColor }) => {
+          const navigation = useNavigation();
+          if (!canGoBack) return null;
+
+          return (
+            <Pressable
+              onPress={() => navigation.navigate("Settings")}
+              hitSlop={10}
+            >
+              <MaterialCommunityIcons name="cog" size={30} color={tintColor} />
             </Pressable>
           );
         },
@@ -54,6 +68,14 @@ const AuthStack = () => {
         component={SignInScreen}
         options={{
           title: "로그인",
+          headerShown: false,
+        }}
+      />
+      <Stack.Screen
+        name="Settings"
+        component={SettingsScreen}
+        options={{
+          title: "세팅",
         }}
       />
     </Stack.Navigator>

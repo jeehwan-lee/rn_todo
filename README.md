@@ -21,8 +21,12 @@
 6. 화면의 옵션을 설정하는법
 
 - Navigator, Screen, 화면 컴포넌트 자체 이렇게 3가지 방법이 있음
-- contentStyle, headerTitleAlign(안드로이드에서만 적용), title, headerTitle, headerTintColor, headerTitleStyle 등이 있음
+- contentStyle, headerTitleAlign(안드로이드에서만 적용), title, headerTitle, headerTintColor, headerTitleStyle, headerShown 등이 있음
 
 7. 뒤로가기
 
 - navigation pop 또는 goBack
+
+8. useNavigation Hook
+
+- navigation props를 전달하지 않고 어디서든 사용할 수 있도록 하는 Hook
