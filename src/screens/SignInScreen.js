@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import {
   Alert,
   Image,
@@ -10,6 +10,7 @@ import {
   Text,
   View,
 } from "react-native";
+import { signIn } from "../api/auth";
 import Button from "../components/Button";
 import Input, {
   IconNames,
@@ -21,7 +22,14 @@ import SafeInputView from "../components/SafeInputView";
 function SignInScreen({ navigation }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [disabled, setDisabled] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
+
   const passwordRef = useRef(null);
+
+  useEffect(() => {
+    setDisabled(!email || !password);
+  }, [email, password]);
 
   const onSubmit = async () => {
     if (!isLoading && !disabled) {
@@ -64,7 +72,12 @@ function SignInScreen({ navigation }) {
           onSubmitEditing={onSubmit}
         />
         <View style={styles.buttonContainer}>
-          <Button title="로그인" onPress={onSubmit} />
+          <Button
+            title="로그인"
+            onPress={onSubmit}
+            disabled={disabled}
+            isLoading={isLoading}
+          />
         </View>
       </View>
     </SafeInputView>
