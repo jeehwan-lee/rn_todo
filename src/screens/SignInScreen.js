@@ -1,5 +1,6 @@
 import { useRef, useState } from "react";
 import {
+  Alert,
   Image,
   Keyboard,
   KeyboardAvoidingView,
@@ -9,6 +10,7 @@ import {
   Text,
   View,
 } from "react-native";
+import Button from "../components/Button";
 import Input, {
   IconNames,
   keyboardTypes,
@@ -16,12 +18,26 @@ import Input, {
 } from "../components/Input";
 import SafeInputView from "../components/SafeInputView";
 
-function SignInScreen() {
+function SignInScreen({ navigation }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const passwordRef = useRef(null);
 
-  console.log(email, password);
+  const onSubmit = async () => {
+    if (!isLoading && !disabled) {
+      try {
+        setIsLoading(true);
+        Keyboard.dismiss();
+        const data = await signIn(email, password);
+        setIsLoading(false);
+        navigation.navigate("List");
+      } catch (error) {
+        Alert.alert("로그인 실패", error, [
+          { text: "확인", onPress: () => setIsLoading(false) },
+        ]);
+      }
+    }
+  };
 
   return (
     <SafeInputView>
@@ -45,7 +61,11 @@ function SignInScreen() {
           onChangeText={(text) => setPassword(text)}
           iconName={IconNames.PASSWORD}
           ref={passwordRef}
+          onSubmitEditing={onSubmit}
         />
+        <View style={styles.buttonContainer}>
+          <Button title="로그인" onPress={onSubmit} />
+        </View>
       </View>
     </SafeInputView>
   );
@@ -60,6 +80,11 @@ const styles = StyleSheet.create({
   image: {
     width: 200,
     height: 200,
+  },
+  buttonContainer: {
+    width: "100%",
+    marginTop: 30,
+    paddingHorizontal: 20,
   },
 });
 
