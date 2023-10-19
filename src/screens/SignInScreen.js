@@ -20,7 +20,7 @@ import Input, {
 } from "../components/Input";
 import SafeInputView from "../components/SafeInputView";
 
-function SignInScreen({ navigation }) {
+function SignInScreen({ setUser }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [disabled, setDisabled] = useState(true);
@@ -39,7 +39,7 @@ function SignInScreen({ navigation }) {
         Keyboard.dismiss();
         const data = await signIn(email, password);
         setIsLoading(false);
-        navigation.navigate("List");
+        setUser(data);
       } catch (error) {
         Alert.alert("로그인 실패", error, [
           { text: "확인", onPress: () => setIsLoading(false) },
@@ -88,8 +88,8 @@ function SignInScreen({ navigation }) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    // justifyContent: "center",
-    // alignItems: "center",
+    justifyContent: "center",
+    alignItems: "center",
   },
   image: {
     width: 200,

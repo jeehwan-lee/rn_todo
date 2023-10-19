@@ -9,75 +9,17 @@ import SettingsScreen from "../screens/SettingsScreen";
 
 const Stack = createNativeStackNavigator();
 
-const AuthStack = () => {
+const AuthStack = (props) => {
   return (
     <Stack.Navigator
-      initialRouteName="SignIn"
       screenOptions={{
         contentStyle: { backgroundColor: WHITE },
-        headerTitleAlign: "center",
-        headerTitleStyle: {
-          fontWeight: "700",
-        },
-        headerTitle: ({ children, tintColor }) => {
-          return (
-            <Pressable onPress={() => console.log("test")}>
-              <Text style={{ color: tintColor }}>{children}</Text>
-            </Pressable>
-          );
-        },
-        headerLeft: ({ canGoBack, tintColor }) => {
-          const navigation = useNavigation();
-          if (!canGoBack) return null;
-
-          return (
-            <Pressable onPress={() => navigation.goBack()} hitSlop={10}>
-              <MaterialCommunityIcons
-                name="chevron-left"
-                size={30}
-                color={tintColor}
-              />
-            </Pressable>
-          );
-        },
-        headerRight: ({ canGoBack, tintColor }) => {
-          const navigation = useNavigation();
-          if (!canGoBack) return null;
-
-          return (
-            <Pressable
-              onPress={() => navigation.navigate("Settings")}
-              hitSlop={10}
-            >
-              <MaterialCommunityIcons name="cog" size={30} color={tintColor} />
-            </Pressable>
-          );
-        },
+        headerShown: false,
       }}
     >
-      <Stack.Screen
-        name="List"
-        component={ListScreen}
-        options={{
-          title: "TODO LIST",
-          headerTintColor: PRIMARY.DEFAULT,
-        }}
-      />
-      <Stack.Screen
-        name="SignIn"
-        component={SignInScreen}
-        options={{
-          title: "로그인",
-          headerShown: false,
-        }}
-      />
-      <Stack.Screen
-        name="Settings"
-        component={SettingsScreen}
-        options={{
-          title: "세팅",
-        }}
-      />
+      <Stack.Screen name="SignIn">
+        {(screenProps) => <SignInScreen {...screenProps} {...props} />}
+      </Stack.Screen>
     </Stack.Navigator>
   );
 };
