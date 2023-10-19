@@ -17,3 +17,12 @@
 
 5. Navigator 에서 첫번째 Screen가 제일 먼저 뜨는 화면이지만,
    initialRouteName으로 첫번째 화면을 정할 수 있음
+
+6. 화면의 옵션을 설정하는법
+
+- Navigator, Screen, 화면 컴포넌트 자체 이렇게 3가지 방법이 있음
+- contentStyle, headerTitleAlign(안드로이드에서만 적용), title, headerTitle, headerTintColor, headerTitleStyle 등이 있음
+
+7. 뒤로가기
+
+- navigation pop 또는 goBack
