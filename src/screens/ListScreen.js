@@ -1,20 +1,22 @@
 import { memo } from "react";
 import { FlatList, ScrollView, StyleSheet, Text, View } from "react-native";
+import { GRAY } from "../color";
 import Button from "../components/Button";
+import ListItem from "../components/ListItem";
 
-const ListItem = memo(({ item }) => {
-  console.log(item.id);
-  return (
-    <View style={{ paddingVertical: 10, paddingHorizontal: 20 }}>
-      <Text Style={{ fontSize: 20 }}>{item.task}</Text>
-    </View>
-  );
-});
-const ListScreen = ({ navigation }) => {
-  const todos = [];
-  for (let i = 1; i < 501; i++) {
-    todos.push({ id: i, task: `task : ${i}` });
-  }
+const Separator = () => {
+  return <View style={styles.separator}></View>;
+};
+
+const ListScreen = () => {
+  const todos = [
+    { id: 1, task: "React Native", isDone: false },
+    { id: 2, task: "Flutter", isDone: false },
+    { id: 3, task: "Android", isDone: false },
+    { id: 4, task: "Swift", isDone: false },
+    { id: 5, task: "React", isDone: false },
+    { id: 6, task: "Vue", isDone: true },
+  ];
 
   return (
     <View style={StyleSheet.container}>
@@ -22,6 +24,14 @@ const ListScreen = ({ navigation }) => {
         windowSize={5}
         data={todos}
         keyExtractor={(item) => item.id.toString()}
+        ItemSeparatorComponent={Separator}
+        ListHeaderComponent={() => {
+          return (
+            <>
+              <View style={{ height: 10 }}></View>
+            </>
+          );
+        }}
         renderItem={({ item }) => {
           console.log(item.id);
           return <ListItem item={item} />;
@@ -36,6 +46,12 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: "center",
     justifyContent: "center",
+  },
+  separator: {
+    height: 1,
+    backgroundColor: GRAY.LIGHT,
+    marginVertical: 10,
+    marginHorizontal: 10,
   },
 });
 
