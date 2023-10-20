@@ -1,13 +1,32 @@
-import { StyleSheet, Text, View } from "react-native";
+import { memo } from "react";
+import { FlatList, ScrollView, StyleSheet, Text, View } from "react-native";
 import Button from "../components/Button";
 
+const ListItem = memo(({ item }) => {
+  console.log(item.id);
+  return (
+    <View style={{ paddingVertical: 10, paddingHorizontal: 20 }}>
+      <Text Style={{ fontSize: 20 }}>{item.task}</Text>
+    </View>
+  );
+});
 const ListScreen = ({ navigation }) => {
-  console.log("rendering ListScreen");
+  const todos = [];
+  for (let i = 1; i < 501; i++) {
+    todos.push({ id: i, task: `task : ${i}` });
+  }
+
   return (
     <View style={StyleSheet.container}>
-      <Text style={{ fontSize: 30 }}>List Screen</Text>
-      <Button title="push" onPress={() => navigation.push("List")} />
-      <Button title="navigate" onPress={() => navigation.navigate("List")} />
+      <FlatList
+        windowSize={5}
+        data={todos}
+        keyExtractor={(item) => item.id.toString()}
+        renderItem={({ item }) => {
+          console.log(item.id);
+          return <ListItem item={item} />;
+        }}
+      />
     </View>
   );
 };

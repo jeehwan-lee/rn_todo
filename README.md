@@ -39,3 +39,18 @@
 
 10. 로그인 구분법
     10-1. Navigator 을 통해 Authstack 과 Mainstack으로 구분 (네비게이터 구분)
+
+11. context API
+    11-1. Provider를 통해 감싼 children 태그들에서 context API를 통해 관리되는 상태를 쓸 수 있음.
+    11-2. 사용하려면 useContext 를 통해 꺼내서 사용
+
+12. 화면 스크롤
+
+12-1. ScrollView : 많은 양의 데이터를 한번에 랜더링
+12-2. FlatList : 몇개의 데이터만 먼저 가져온 뒤 스크롤될 때 데이터를 추가해서 랜더링
+
+- FlatList 에서는 key를 사용하기 위해 keyExtractor를 사용
+- FlatList는 한 번에 렌더링할 양을 결정하는 windowSize props가 있음.
+  (기본값 : 21, windowSize 1이 화면의 보이는 높이)
+  (21 = 이전 10개 화면 + 현재 화면 1개 + 이후 화면 10개)
+  (5로 설정 하면 이전 화면 2개 + 현재 화면 1개 + 이후 화면 2개)
