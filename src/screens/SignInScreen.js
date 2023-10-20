@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import {
   Alert,
   Image,
@@ -19,14 +19,17 @@ import Input, {
   returnKeyTypes,
 } from "../components/Input";
 import SafeInputView from "../components/SafeInputView";
+import UserContext from "../contexts/UserContext";
 
-function SignInScreen({ setUser }) {
+function SignInScreen() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [disabled, setDisabled] = useState(true);
   const [isLoading, setIsLoading] = useState(false);
 
   const passwordRef = useRef(null);
+
+  const { setUser } = useContext(UserContext);
 
   useEffect(() => {
     setDisabled(!email || !password);

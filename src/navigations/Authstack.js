@@ -9,7 +9,7 @@ import SettingsScreen from "../screens/SettingsScreen";
 
 const Stack = createNativeStackNavigator();
 
-const AuthStack = (props) => {
+const AuthStack = () => {
   return (
     <Stack.Navigator
       screenOptions={{
@@ -17,9 +17,7 @@ const AuthStack = (props) => {
         headerShown: false,
       }}
     >
-      <Stack.Screen name="SignIn">
-        {(screenProps) => <SignInScreen {...screenProps} {...props} />}
-      </Stack.Screen>
+      <Stack.Screen name="SignIn" component={SignInScreen}></Stack.Screen>
     </Stack.Navigator>
   );
 };
