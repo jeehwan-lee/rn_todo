@@ -1,14 +1,20 @@
 import { ActivityIndicator, Pressable, StyleSheet, Text } from "react-native";
-import { GRAY, PRIMARY, WHITE } from "../color";
+import { GRAY, PRIMARY, WHITE, DANGER } from "../color";
 
-const Button = ({ title, onPress, disabled, isLoading }) => {
+export const ButtonTypes = {
+  PRIMARY: "PRIMARY",
+  DANGER: "DANGER",
+};
+const Button = ({ title, onPress, disabled, isLoading, buttonType }) => {
+  const colors = { PRIMARY, DANGER };
   return (
     <Pressable
       onPress={onPress}
       style={({ pressed }) => [
         styles.container,
-        pressed && { backgroundColor: PRIMARY.DARK },
-        disabled && { backgroundColor: PRIMARY.LIGHT, opacity: 0.6 },
+        { backgroundColor: colors[buttonType].DEFAULT },
+        pressed && { backgroundColor: colors[buttonType].DARK },
+        disabled && { backgroundColor: colors[buttonType].LIGHT, opacity: 0.6 },
       ]}
       disabled={disabled}
     >
@@ -19,6 +25,10 @@ const Button = ({ title, onPress, disabled, isLoading }) => {
       )}
     </Pressable>
   );
+};
+
+Button.defaultProps = {
+  buttonType: ButtonTypes.PRIMARY,
 };
 
 const styles = StyleSheet.create({
