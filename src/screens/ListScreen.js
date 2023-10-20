@@ -2,11 +2,9 @@ import { memo } from "react";
 import { FlatList, ScrollView, StyleSheet, Text, View } from "react-native";
 import { GRAY } from "../color";
 import Button from "../components/Button";
+import EmptyList from "../components/EmptyList";
+import List from "../components/List";
 import ListItem from "../components/ListItem";
-
-const Separator = () => {
-  return <View style={styles.separator}></View>;
-};
 
 const ListScreen = () => {
   const todos = [
@@ -18,41 +16,7 @@ const ListScreen = () => {
     { id: 6, task: "Vue", isDone: true },
   ];
 
-  return (
-    <View style={StyleSheet.container}>
-      <FlatList
-        windowSize={5}
-        data={todos}
-        keyExtractor={(item) => item.id.toString()}
-        ItemSeparatorComponent={Separator}
-        ListHeaderComponent={() => {
-          return (
-            <>
-              <View style={{ height: 10 }}></View>
-            </>
-          );
-        }}
-        renderItem={({ item }) => {
-          console.log(item.id);
-          return <ListItem item={item} />;
-        }}
-      />
-    </View>
-  );
+  return todos.length !== 0 ? <List data={todos} /> : <EmptyList />;
 };
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: "center",
-    justifyContent: "center",
-  },
-  separator: {
-    height: 1,
-    backgroundColor: GRAY.LIGHT,
-    marginVertical: 10,
-    marginHorizontal: 10,
-  },
-});
 
 export default ListScreen;
