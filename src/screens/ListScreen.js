@@ -3,6 +3,7 @@ import { FlatList, ScrollView, StyleSheet, Text, View } from "react-native";
 import { GRAY } from "../color";
 import Button from "../components/Button";
 import EmptyList from "../components/EmptyList";
+import InputFAB from "../components/InputFAB";
 import List from "../components/List";
 import ListItem from "../components/ListItem";
 
@@ -16,7 +17,11 @@ const ListScreen = () => {
     { id: 6, task: "Vue", isDone: true },
   ];
 
-  return todos.length !== 0 ? <List data={todos} /> : <EmptyList />;
+  return (
+    <View style={{ flex: 1, paddingBottom: bottom }}>
+      {todos.length !== 0 ? <List data={todos} /> : <EmptyList />}
+    </View>
+  );
 };
 
 export default ListScreen;
