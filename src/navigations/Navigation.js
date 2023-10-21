@@ -8,7 +8,8 @@ const Navigation = () => {
   const { user } = useContext(UserContext);
   return (
     <NavigationContainer>
-      {user ? <MainStack /> : <AuthStack />}
+      <MainStack />
+      {/* {user ? <MainStack /> : <AuthStack />} */}
     </NavigationContainer>
   );
 };
