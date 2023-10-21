@@ -15,7 +15,7 @@ import { useWindowDimensions } from "react-native";
 const BOTTOM = 30;
 const BUTTON_WIDTH = 60;
 
-const InputFAB = () => {
+const InputFAB = ({ onInsert }) => {
   const [text, setText] = useState("");
   const [isOpened, setIsOpened] = useState(false);
   const [keyboardHeight, setKeyboardHeight] = useState(BOTTOM);
@@ -79,6 +79,13 @@ const InputFAB = () => {
     }
   };
 
+  const onPressInsert = () => {
+    const task = text.trim();
+    if (task) {
+      onInsert(task);
+    }
+  };
+
   const spin = buttonRotation.interpolate({
     inputRange: [0, 1],
     outputRange: ["0deg", "315deg"],
@@ -113,6 +120,7 @@ const InputFAB = () => {
           textContentType="none"
           keyboardAppearance="light"
           returnKeyType="done"
+          onSubmitEditing={onPressInsert}
         />
       </Animated.View>
       <Animated.View
