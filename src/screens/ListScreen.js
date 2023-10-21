@@ -21,7 +21,7 @@ const ListScreen = () => {
   const [todos, setTodos] = useState([]);
   const [isBottom, setIsBottom] = useState(false);
 
-  const { getItem, setItem } = useAsyncStorage("todos");
+  const { getItem, setItem } = useAsyncStorage("todos2");
 
   const save = async (data) => {
     try {
@@ -45,12 +45,19 @@ const ListScreen = () => {
 
   const onInsert = (task) => {
     const id = Date.now().toString();
-    const newTodos = [{ id, task, isDone: false }, ...todos];
+    const newTodos = [{ id: id, task: task, isDone: false }, ...todos];
     save(newTodos);
   };
 
   const onDelete = (id) => {
     const newTodos = todos.filter((todo) => todo.id !== id);
+    save(newTodos);
+  };
+
+  const onToggle = (id) => {
+    const newTodos = todos.map((todo) =>
+      todo.id === id ? { ...todo, isDone: !todo.isDone } : todo
+    );
     save(newTodos);
   };
 
@@ -61,7 +68,12 @@ const ListScreen = () => {
   return (
     <View style={{ flex: 1 }}>
       {todos.length !== 0 ? (
-        <List data={todos} setIsBottom={setIsBottom} onDelete={onDelete} />
+        <List
+          data={todos}
+          setIsBottom={setIsBottom}
+          onDelete={onDelete}
+          onToggle={onToggle}
+        />
       ) : (
         <EmptyList />
       )}

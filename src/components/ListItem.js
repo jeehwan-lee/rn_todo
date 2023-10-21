@@ -3,10 +3,15 @@ import { Pressable, StyleSheet, Text, View } from "react-native";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { BLACK, DANGER, PRIMARY } from "../color";
 
-const ListItem = memo(({ item, onDelete }) => {
+const ListItem = memo(({ item, onDelete, onToggle }) => {
   return (
     <View style={styles.container}>
-      <Pressable onPress={() => {}} hitSlop={10}>
+      <Pressable
+        onPress={() => {
+          onToggle(item.id);
+        }}
+        hitSlop={10}
+      >
         {item.isDone ? (
           <MaterialCommunityIcons
             name="checkbox-marked"
