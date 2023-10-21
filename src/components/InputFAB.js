@@ -12,10 +12,11 @@ import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { BLACK, PRIMARY, WHITE } from "../color";
 import { useWindowDimensions } from "react-native";
 
+const RIGHT = 2;
 const BOTTOM = 30;
 const BUTTON_WIDTH = 60;
 
-const InputFAB = ({ onInsert }) => {
+const InputFAB = ({ onInsert, isBottom }) => {
   const [text, setText] = useState("");
   const [isOpened, setIsOpened] = useState(false);
   const [keyboardHeight, setKeyboardHeight] = useState(BOTTOM);
@@ -23,6 +24,7 @@ const InputFAB = ({ onInsert }) => {
   const inputRef = useRef(null);
   const inputWidth = useRef(new Animated.Value(BUTTON_WIDTH)).current;
   const buttonRotation = useRef(new Animated.Value(0)).current;
+  const buttonRight = useRef(new Animated.Value(RIGHT)).current;
 
   const windowWidth = useWindowDimensions().width;
 
@@ -41,6 +43,13 @@ const InputFAB = ({ onInsert }) => {
       };
     }
   }, []);
+
+  useEffect(() => {
+    Animated.timing(buttonRight, {
+      toValue: isBottom ? RIGHT - BUTTON_WIDTH : RIGHT,
+      useNativeDriver: false,
+    }).start();
+  }, [buttonRight, isBottom]);
 
   const open = () => {
     Animated.timing(inputWidth, {
@@ -105,6 +114,8 @@ const InputFAB = ({ onInsert }) => {
             justifyContent: "center",
             bottom: keyboardHeight,
             width: inputWidth,
+            right: buttonRight,
+            position: "absolute",
           },
           isOpened && { width: windowWidth - 20 },
         ]}
@@ -130,6 +141,8 @@ const InputFAB = ({ onInsert }) => {
           {
             bottom: keyboardHeight,
             transform: [{ rotate: spin }],
+            right: buttonRight,
+            position: "absolute",
           },
         ]}
       >

@@ -10,6 +10,7 @@ import ListItem from "../components/ListItem";
 
 const ListScreen = () => {
   const [todos, setTodos] = useState([]);
+  const [isBottom, setIsBottom] = useState(false);
 
   const onInsert = (task) => {
     const id = Date.now().toString();
@@ -18,8 +19,12 @@ const ListScreen = () => {
 
   return (
     <View style={{ flex: 1 }}>
-      {todos.length !== 0 ? <List data={todos} /> : <EmptyList />}
-      <InputFAB onInsert={onInsert} />
+      {todos.length !== 0 ? (
+        <List data={todos} setIsBottom={setIsBottom} />
+      ) : (
+        <EmptyList />
+      )}
+      <InputFAB onInsert={onInsert} isBottom={isBottom} />
     </View>
   );
 };

@@ -56,6 +56,7 @@
   (5로 설정 하면 이전 화면 2개 + 현재 화면 1개 + 이후 화면 2개)
 - ItemSeparatorComponent : FlatList 에서 각 항목을 구분하려면 ItemSeparatorComponent 통해 구분 컴포넌트를 넣을 수 있음
 - ListHeaderComponent : FlatList에서 ListHeaderComponent를 통해 목록의 가장 상위 항목 위에 컴포넌트를 추가할 수 있음 (동일하게 ListFooterComponent 가 있음)
+  -onScroll props를 통해 scroll 관련 정보를 받을 수 있음.
 
 13. FAB : 플로팅 액션 버튼
 

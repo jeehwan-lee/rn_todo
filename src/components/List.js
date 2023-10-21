@@ -7,13 +7,20 @@ const Separator = () => {
   return <View style={styles.separator}></View>;
 };
 
-const List = ({ data }) => {
+const List = ({ data, setIsBottom }) => {
   return (
     <FlatList
       windowSize={5}
       data={data}
       keyExtractor={(item) => item.id.toString()}
       ItemSeparatorComponent={Separator}
+      onScroll={({
+        nativeEvent: { contentOffset, layoutMeasurement, contentSize },
+      }) => {
+        const distance =
+          contentSize.height - (contentOffset.y + layoutMeasurement.height);
+        setIsBottom(!(distance > 20 || contentOffset.y === 0));
+      }}
       ListHeaderComponent={() => {
         return (
           <>
