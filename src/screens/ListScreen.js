@@ -20,6 +20,7 @@ const ListScreen = () => {
   return (
     <View style={{ flex: 1 }}>
       {todos.length !== 0 ? <List data={todos} /> : <EmptyList />}
+      <InputFAB />
     </View>
   );
 };

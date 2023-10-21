@@ -16,13 +16,13 @@ const InputFAB = () => {
           style={[styles.input]}
           autoCapitalize="none"
           autoCorrect={false}
-          textContentType
+          textContentType="none"
           keyboardAppearance="light"
           returnKeyType="done"
         />
       </View>
       <Pressable
-        style={({ press }) => [
+        style={({ pressed }) => [
           styles.position,
           styles.shape,
           styles.button,
