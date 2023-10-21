@@ -60,3 +60,14 @@
 13. FAB : 플로팅 액션 버튼
 
 14. addListener를 사용할때는 해당 컴포넌트가 언마운트될 때 삭제해줘야됨
+
+15. 그림자 : 아래 속성을 통해 그림자를 만들 수 있음.
+
+- shadowColor, shadowOffset(ios), shadowOpacity(ios), shadowRadius(ios)
+- elevation (android)
+
+16. Animated 를 통해 애니메이션 효과를 줄 수 있음.
+
+- 특정 컴포넌트 스타일에 Animated를 붙여 적용할 수 있음. 예시) <View> -> <Animated.View>
+- timing : 시간을 줘서 변화시킬 수 있음.
+- spring : 통통 튀는 효과를 줌

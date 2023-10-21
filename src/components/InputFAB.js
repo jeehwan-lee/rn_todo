@@ -6,10 +6,14 @@ import {
   View,
   Platform,
   Keyboard,
+  Animated,
 } from "react-native";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
-import { PRIMARY, WHITE } from "../color";
+import { BLACK, PRIMARY, WHITE } from "../color";
 import { useWindowDimensions } from "react-native";
+
+const BOTTOM = 30;
+const BUTTON_WIDTH = 60;
 
 const InputFAB = () => {
   const [text, setText] = useState("");
@@ -17,9 +21,10 @@ const InputFAB = () => {
   const [keyboardHeight, setKeyboardHeight] = useState(BOTTOM);
 
   const inputRef = useRef(null);
-  const windowWidth = useWindowDimensions().width;
+  const inputWidth = useRef(new Animated.Value(BUTTON_WIDTH)).current;
+  const buttonRotation = useRef(new Animated.Value(0)).current;
 
-  const BOTTOM = 30;
+  const windowWidth = useWindowDimensions().width;
 
   useEffect(() => {
     if (Platform.OS === "ios") {
@@ -38,29 +43,62 @@ const InputFAB = () => {
   }, []);
 
   const open = () => {
-    inputRef.current.focus();
+    Animated.timing(inputWidth, {
+      toValue: windowWidth - 20,
+      useNativeDriver: false,
+      duration: 300,
+    }).start(() => {
+      inputRef.current.focus();
+    });
+    Animated.spring(buttonRotation, {
+      toValue: 1,
+      useNativeDriver: false,
+      bounciness: 10,
+    }).start();
     setIsOpened(true);
   };
 
   const close = () => {
     if (isOpened) {
-      inputRef.current.blur();
       setText("");
       setIsOpened(false);
+
+      Animated.timing(inputWidth, {
+        toValue: BUTTON_WIDTH,
+        useNativeDriver: false,
+        duration: 300,
+      }).start(() => {
+        inputRef.current.blur();
+      });
+
+      Animated.spring(buttonRotation, {
+        toValue: 0,
+        useNativeDriver: false,
+        bounciness: 10,
+      }).start();
     }
   };
 
+  const spin = buttonRotation.interpolate({
+    inputRange: [0, 1],
+    outputRange: ["0deg", "315deg"],
+  });
   const onPressButton = () => {
     isOpened ? close() : open();
   };
 
   return (
     <>
-      <View
+      <Animated.View
         style={[
           styles.position,
           styles.shape,
-          { justifyContent: "center", bottom: keyboardHeight },
+          styles.shadow,
+          {
+            justifyContent: "center",
+            bottom: keyboardHeight,
+            width: inputWidth,
+          },
           isOpened && { width: windowWidth - 20 },
         ]}
       >
@@ -76,19 +114,28 @@ const InputFAB = () => {
           keyboardAppearance="light"
           returnKeyType="done"
         />
-      </View>
-      <Pressable
-        style={({ pressed }) => [
+      </Animated.View>
+      <Animated.View
+        style={[
           styles.position,
           styles.shape,
-          styles.button,
-          { bottom: keyboardHeight },
-          pressed && { backgroundColor: PRIMARY.DARK },
+          {
+            bottom: keyboardHeight,
+            transform: [{ rotate: spin }],
+          },
         ]}
-        onPress={onPressButton}
       >
-        <MaterialCommunityIcons name="plus" size={24} color={WHITE} />
-      </Pressable>
+        <Pressable
+          style={({ pressed }) => [
+            styles.shape,
+            styles.button,
+            pressed && { backgroundColor: PRIMARY.DARK },
+          ]}
+          onPress={onPressButton}
+        >
+          <MaterialCommunityIcons name="plus" size={24} color={WHITE} />
+        </Pressable>
+      </Animated.View>
     </>
   );
 };
@@ -100,19 +147,33 @@ const styles = StyleSheet.create({
     right: 10,
   },
   shape: {
-    height: 60,
-    width: 60,
-    borderRadius: 30,
+    height: BUTTON_WIDTH,
+    width: BUTTON_WIDTH,
+    borderRadius: BUTTON_WIDTH / 2,
     backgroundColor: PRIMARY.DEFAULT,
   },
   input: {
     color: WHITE,
     paddingLeft: 20,
-    paddingRight: 70,
+    paddingRight: BUTTON_WIDTH + 10,
   },
   button: {
     justifyContent: "center",
     alignItems: "center",
+  },
+  shadow: {
+    shadowColor: BLACK,
+    ...Platform.select({
+      ios: {
+        shadowOffset: {
+          width: 2,
+          height: 4,
+        },
+        shadowOpacity: 0.5,
+        shadowRadius: 5,
+      },
+      android: { elevation: 5 },
+    }),
   },
 });
 export default InputFAB;
