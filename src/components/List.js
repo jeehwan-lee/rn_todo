@@ -7,7 +7,7 @@ const Separator = () => {
   return <View style={styles.separator}></View>;
 };
 
-const List = ({ data, setIsBottom }) => {
+const List = ({ data, setIsBottom, onDelete }) => {
   return (
     <FlatList
       windowSize={5}
@@ -29,7 +29,7 @@ const List = ({ data, setIsBottom }) => {
         );
       }}
       renderItem={({ item }) => {
-        return <ListItem item={item} />;
+        return <ListItem item={item} onDelete={onDelete} />;
       }}
     />
   );

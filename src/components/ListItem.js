@@ -3,7 +3,7 @@ import { Pressable, StyleSheet, Text, View } from "react-native";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { BLACK, DANGER, PRIMARY } from "../color";
 
-const ListItem = memo(({ item }) => {
+const ListItem = memo(({ item, onDelete }) => {
   return (
     <View style={styles.container}>
       <Pressable onPress={() => {}} hitSlop={10}>
@@ -24,7 +24,12 @@ const ListItem = memo(({ item }) => {
       <View style={styles.task}>
         <Text Style={{ fontSize: 20 }}>{item.task}</Text>
       </View>
-      <Pressable onPress={() => {}} hitSlop={10}>
+      <Pressable
+        onPress={() => {
+          onDelete(item.id);
+        }}
+        hitSlop={10}
+      >
         <MaterialCommunityIcons
           name="trash-can"
           size={20}

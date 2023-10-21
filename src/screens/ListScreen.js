@@ -49,6 +49,11 @@ const ListScreen = () => {
     save(newTodos);
   };
 
+  const onDelete = (id) => {
+    const newTodos = todos.filter((todo) => todo.id !== id);
+    save(newTodos);
+  };
+
   useEffect(() => {
     load();
   }, []);
@@ -56,7 +61,7 @@ const ListScreen = () => {
   return (
     <View style={{ flex: 1 }}>
       {todos.length !== 0 ? (
-        <List data={todos} setIsBottom={setIsBottom} />
+        <List data={todos} setIsBottom={setIsBottom} onDelete={onDelete} />
       ) : (
         <EmptyList />
       )}
